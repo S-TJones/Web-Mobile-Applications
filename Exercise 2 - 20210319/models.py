@@ -1,5 +1,4 @@
 from ws import db
-from datetime import datetime
 
 class Task(db.Model):
     id = db.Column(db.Integer, primary_key=True,  autoincrement=True)
@@ -13,4 +12,4 @@ class Task(db.Model):
         self.done = done
 
     def __repr__(self):
-        return '<TaskModel %r>' % (self.id, self.title)
+        return f'<Task: {self.id}, {self.title}>'
