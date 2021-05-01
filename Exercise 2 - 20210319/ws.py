@@ -1,7 +1,7 @@
 # flask/bin/python
 import os
 from flask import abort
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, render_template
 
 # Flask import for database
 from flask_sqlalchemy import SQLAlchemy
@@ -42,7 +42,7 @@ tasks = [
 # Routes
 @app.route('/')
 def home():
-    return 'Hello'
+    return render_template('index.html')
 
 # GET Functions
 @app.route('/todo/api/v1.0/tasks', methods=['GET'])

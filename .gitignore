@@ -21,3 +21,6 @@ node_modules
 
 # SCSS
 .sass-cache
+
+# Notes
+my-notes*
