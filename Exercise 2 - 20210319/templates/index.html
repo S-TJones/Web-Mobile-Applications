@@ -5,7 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SWEN3004 Exercise 2</title>
-    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    
+    <script src="{{ url_for('static', filename='js/methods.js') }}"></script>
     <script src="https://kit.fontawesome.com/238a67abd4.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -22,10 +24,92 @@
         </nav>
     </header>
     <main>
-        <button onclick="veiwAllTasks()">View All</button>
+        <section class="view-task">
+            <div class="top">
+                <button id="view-all">View All</button>
+                
+                <form action="#" method="get">
+                    <input type="number" name="task-id" id="task-id">
+                    <button id="view-one">View Single</button>
+                </form>
+            </div>
+            <div class="base">
+                <div id="task"></div>
+            </div>
+        </section>
+
+        <section class="update-task">
+            <form action="#">
+                <label for="task-title">Title</label>
+                <input type="text" name="task-title" id="task-title">
+
+                <label for="task-desc">Description</label>
+                <input type="text" name="task-desc" id="task-desc">
+
+                <button id="update-one" type="button">Update</button>
+            </form>
+        </section>
+
+        <section class="delete-task">
+            <form action="#">
+                <input type="number" name="task-id-delete" id="task-id-delete">
+                <button id="delete-one" type="button">Delete</button>
+            </form>
+        </section>
+
+        <script>
+            // Driver function
+            var driver = function(){
+                console.log('load window');
+                let b1 = document.getElementById("view-all");
+                let b2 = document.getElementById("view-one");
+
+                b1.addEventListener("click", veiwAllTasks);
+                b2.addEventListener("click", viewSpecificTask);
+            }
+
+            // Functions for each route
+            function veiwAllTasks() {
+                fetch(`/todo/api/v1.0/tasks`, {
+                    headers: {
+                        method: 'GET'
+                    }
+                })
+                .then(function (response) {
+                    return response.json();
+                }).then(function (jsonResponse) {
+                    console.log('GET response:', jsonResponse);
+                });
+            }
+
+            function viewSpecificTask(event) {
+                event.preventDefault();
+                let id = document.getElementById("task-id").value;
+
+                fetch(`/todo/api/v1.0/tasks/${id}`, {
+                    headers: {
+                        method: 'GET',
+                        headers: {
+                            'Accept': 'application/json, text/plain, */*',
+                            //'Content-Type': 'application/json'
+                            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8" // otherwise $_POST is empty
+                        }
+                    }
+                })
+                .then(function (response) {
+                    return response.json();
+                }).then(function (jsonResponse) {
+                    console.log('JSONresponse:', jsonResponse);
+                    code = "<div class='single-task'><h3>" + jsonResponse['task']['title'] + "</h3><p>" + jsonResponse['task']['description'] + "</p></div>";
+
+                    document.getElementById("task").innerHTML = code;
+                });
+            }
+
+            // Runs this function on startup
+            window.onload = driver;
+        </script>
     </main>
     <footer></footer>
-
-    <script src="../static/js/methods.js"></script>
 </body>
 </html>

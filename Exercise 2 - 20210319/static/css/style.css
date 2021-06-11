@@ -1,5 +1,30 @@
-*, ::after, ::before {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+*,
+::after,
+::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: turquoise;
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+}
+
+.single-task {
+  max-width: 400px;
+  max-height: 300px;
+  border: 1px solid grey;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.single-task p {
+  overflow: auto;
 }
