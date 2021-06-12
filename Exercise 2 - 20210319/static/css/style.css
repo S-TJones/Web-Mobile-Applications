@@ -10,9 +10,57 @@ body {
   background-color: turquoise;
 }
 
-section {
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 60px;
+  border-bottom: solid 1px grey;
+  margin-bottom: 10px;
+}
+
+header h1 {
+  margin-left: 20px;
+  cursor: pointer;
+}
+
+nav ul {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20px;
+}
+
+nav ul li {
+  list-style: none;
+}
+
+nav ul li a {
+  text-decoration: none;
+  text-transform: uppercase;
+  padding: 5px 10px;
+  color: #000;
+}
+
+main {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  max-width: 600px;
+}
+
+section {
+  border: 3px dashed #000;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100px;
+  margin: 20px 0px;
 }
 
 .single-task {
@@ -27,4 +75,61 @@ section {
 
 .single-task p {
   overflow: auto;
+}
+
+.view-task, .add-task {
+  display: flex;
+  flex-direction: row;
+}
+
+.left {
+  width: 25%;
+  padding: 0px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  border-right: solid 3px #000;
+  margin-right: 10px;
+}
+
+hr {
+  width: 100%;
+  border: solid 1px;
+  margin: 15px 0px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+label {
+  margin-top: 10px;
+}
+
+input {
+  width: 100%;
+  height: 1.8em;
+  border-radius: 5px;
+  border: solid 2px blue;
+}
+
+textarea {
+  width: 100%;
+  height: 60px;
+  border-radius: 5px;
+  border: solid 2px blue;
+  overflow: auto;
+}
+
+button {
+  margin: 10px 0px;
+  padding: 3px 10px;
+  width: 100%;
+  border-radius: 5px;
+  border: 1px solid #000;
+  cursor: pointer;
 }

@@ -5,30 +5,168 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SWEN3004 Exercise 2</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    
     <script src="https://kit.fontawesome.com/238a67abd4.js" crossorigin="anonymous"></script>
+    <style>
+        *,
+        ::after,
+        ::before {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        }
+
+        body {
+        background-color: turquoise;
+        }
+
+        header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        height: 60px;
+        border-bottom: solid 1px grey;
+        margin-bottom: 10px;
+        }
+
+        header h1 {
+        margin-left: 20px;
+        cursor: pointer;
+        }
+
+        nav ul {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        margin-right: 20px;
+        }
+
+        nav ul li {
+        list-style: none;
+        }
+
+        nav ul li a {
+        text-decoration: none;
+        text-transform: uppercase;
+        padding: 5px 10px;
+        color: #000;
+        }
+
+        main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+        max-width: 600px;
+        }
+
+        section {
+        border: 3px dashed #000;
+        border-radius: 5px;
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        min-height: 100px;
+        margin: 20px 0px;
+        }
+
+        .single-task {
+        min-width: 200px;
+        max-width: 400px;
+        max-height: 300px;
+        border: 1px solid grey;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        }
+
+        .single-task p {
+        overflow: auto;
+        }
+
+        .view-task, .add-task {
+        display: flex;
+        flex-direction: row;
+        }
+
+        .left {
+        width: 25%;
+        padding: 0px 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-evenly;
+        border-right: solid 3px #000;
+        margin-right: 10px;
+        }
+
+        hr {
+        width: 100%;
+        border: solid 1px;
+        margin: 15px 0px;
+        }
+
+        form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        }
+
+        label {
+        margin-top: 10px;
+        }
+
+        input {
+        width: 100%;
+        height: 1.8em;
+        border-radius: 5px;
+        border: solid 2px blue;
+        }
+
+        textarea {
+        width: 100%;
+        height: 60px;
+        border-radius: 5px;
+        border: solid 2px blue;
+        overflow: auto;
+        }
+
+        button {
+        margin: 10px 0px;
+        padding: 3px 10px;
+        width: 100%;
+        border-radius: 5px;
+        border: 1px solid #000;
+        cursor: pointer;
+        }
+    </style>
 </head>
 <body>
     <header>
         <h1>Exercise 2</h1>
         <nav>
             <ul>
-                <li>Home</li>
-                <li>GET</li>
-                <li>POST</li>
-                <li>PUT</li>
-                <li>DELETE</li>
+                <li><a href="#">Home</a></li>
+                <li><a href="#get-section">GET</a></li>
+                <li><a href="#post-section">POST</a></li>
+                <li><a href="#put-section">PUT</a></li>
+                <li><a href="#delete-section">DELETE</a></li>
             </ul>
         </nav>
     </header>
     <main>
-        <section class="view-task">
+        <section class="view-task" id="get-section">
             <div class="left">
+                <h3>To GET Tasks</h3>
                 <button id="view-all">View All</button>
+                <hr>
                 
                 <form action="#" method="get">
-                    <input type="number" name="task-id" id="task-id">
+                    <input type="number" name="task-id" id="task-id" placeholder="Enter ID here">
                     <button id="view-one">View Single</button>
                 </form>
             </div>
@@ -37,14 +175,14 @@
             </div>
         </section>
 
-        <section class="add-task">
+        <section class="add-task"  id="post-section">
             <div class="left">
                 <form action="#" method="post">
                     <label for="task-title-add">Title</label>
                     <input type="text" name="task-title-add" id="task-title-add">
 
                     <label for="task-desc-add">Description</label>
-                    <input type="text" name="task-desc-add" id="task-desc-add">
+                    <textarea name="task-desc-add" id="task-desc-add" cols="30" rows="10"></textarea>
 
                     <button id="add-one" type="button">Add</button>
                 </form>
@@ -55,29 +193,38 @@
             </div>
         </section>
 
-        <section class="update-task">
+        <section class="update-task"  id="put-section">
             <form action="#">
-                <label for="task-title">Title</label>
-                <input type="text" name="task-title" id="task-title">
+                <label for="task-id-put">ID</label>
+                <input type="number" name="task-id-put" id="task-id-put" placeholder="Enter ID here">
 
-                <label for="task-desc">Description</label>
-                <input type="text" name="task-desc" id="task-desc">
+                <label for="task-title-put">Title</label>
+                <input type="text" name="task-title-put" id="task-title-put">
+
+                <label for="task-desc-put">Description</label>
+                <textarea name="task-desc-put" id="task-desc-put" cols="30" rows="10"></textarea>
 
                 <button id="update-one" type="button">Update</button>
             </form>
         </section>
 
-        <section class="delete-task">
-            <form action="#">
-                <input type="number" name="task-id-delete" id="task-id-delete">
-                <button id="delete-one" type="button">Delete</button>
-            </form>
+        <section class="delete-task" id="delete-section">
+            <div class="left">
+                <h3>To DELETE a Task</h3>
+                <form action="#">
+                    <input type="number" name="task-id-delete" id="task-id-delete" placeholder="Enter ID here">
+                    <button id="delete-one" type="button">Delete</button>
+                </form>
+            </div>
+            <div class="right">
+                <h3>Deleted Task</h3>
+                <div id="delete-task"></div>
+            </div>
         </section>
 
         <script>
             // Driver function
             var driver = function(){
-                console.log('load window');
                 let b1 = document.getElementById("view-all");
                 let b2 = document.getElementById("view-one");
                 let b3 = document.getElementById("add-one");
@@ -87,6 +234,7 @@
                 b1.addEventListener("click", veiwAllTasks);
                 b2.addEventListener("click", viewSpecificTask);
                 b3.addEventListener("click", addSingleTask);
+                b4.addEventListener("click", updateSingleTask);
                 b5.addEventListener("click", deleteSpecificTask);
             }
 
@@ -100,7 +248,21 @@
                 .then(function (response) {
                     return response.json();
                 }).then(function (jsonResponse) {
-                    console.log('GET response:', jsonResponse);
+                    // console.log('GET response:', jsonResponse);
+                    let code = "";
+
+                    for (const object in jsonResponse['tasks']) {
+                        let task_object = jsonResponse['tasks'][object];
+
+                        // console.log(task_object['id'])
+                        // console.log(task_object['title'])
+                        // console.log(task_object['description'])
+                        // console.log(task_object['done'])
+
+                        code += "<div class='single-task'><h3>" + "[" + task_object['id'] + "]" + task_object['title'] + "</h3><p>" + task_object['description'] + "</p><p>Status: " + task_object['done'] + "</p></div>";
+                    }
+
+                    document.getElementById("task").innerHTML = code;
                 });
             }
 
@@ -122,8 +284,8 @@
                 .then(function (response) {
                     return response.json();
                 }).then(function (jsonResponse) {
-                    console.log('JSONresponse:', jsonResponse);
-                    code = "<div class='single-task'><h3>" + jsonResponse['task']['title'] + "</h3><p>" + jsonResponse['task']['description'] + "</p></div>";
+                    // console.log('JSONresponse:', jsonResponse);
+                    code = "<div class='single-task'><h3>" + "[" + jsonResponse['task']['id'] + "]" + jsonResponse['task']['title'] + "</h3><p>" + jsonResponse['task']['description'] + "</p><p>Status: " + jsonResponse['task']['done'] + "</p></div>";
 
                     document.getElementById("task").innerHTML = code;
                 });
@@ -152,7 +314,40 @@
                 }).then(function (jsonResponse) {
                     console.log('GET response:', jsonResponse);
 
-                    // Update the div
+                    code = "<div class='single-task'><h3>" + "[" + jsonResponse['task']['id'] + "]" + jsonResponse['task']['title'] + "</h3><p>" + jsonResponse['task']['description'] + "</p><p>Status: " + jsonResponse['task']['done'] + "</p></div>";
+
+                    document.getElementById("new-task").innerHTML = code;
+                });
+            }
+
+            function updateSingleTask(event) {
+                event.preventDefault();
+
+                let task_title = document.getElementById("task-title-put").value;
+                let task_desc = document.getElementById("task-desc-put").value;
+                let id = document.getElementById("task-id-put").value;
+
+                fetch(`/todo/api/v1.0/tasks/${id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(
+                        {
+                            'title': task_title,
+                            'description': task_desc,
+                            'done': false
+                        }
+                    )
+                })
+                .then(function (response) {
+                    return response.json();
+                }).then(function (jsonResponse) {
+                    console.log('GET response:', jsonResponse);
+
+                    // code = "<div class='single-task'><h3>" + "[" + jsonResponse['task']['id'] + "]" + jsonResponse['task']['title'] + "</h3><p>" + jsonResponse['task']['description'] + "</p><p>Status: " + jsonResponse['task']['done'] + "</p></div>";
+
+                    // document.getElementById("new-task").innerHTML = code;
                 });
             }
 
@@ -172,6 +367,10 @@
                     return response.json();
                 }).then(function (jsonResponse) {
                     console.log('JSONresponse:', jsonResponse);
+
+                    code = "<div class='single-task'><h3>" + "[" + jsonResponse['task']['id'] + "]" + jsonResponse['task']['title'] + "</h3><p>" + jsonResponse['task']['description'] + "</p><p>Status: " + jsonResponse['task']['done'] + "</p></div>";
+
+                    document.getElementById("delete-task").innerHTML = code;
                 });
             }
 
