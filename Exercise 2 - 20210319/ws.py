@@ -44,6 +44,7 @@ tasks = [
 def home():
     return render_template('index.html')
 
+
 # GET Functions
 @app.route('/todo/api/v1.0/tasks', methods=['GET'])
 def get_tasks():
@@ -59,23 +60,29 @@ def get_task(task_id):
 
     return jsonify({'task': task[0]})
 
+
 # POST Functions
 @app.route('/todo/api/v1.0/tasks', methods=['POST'])
 def create_task():
+
     if not request.json or not 'title' in request.json:
         abort(400)
+
     task = {
-        'id': task[-1]['id'] + 1,
+        'id': tasks[-1]['id'] + 1,
         'title': request.json['title'],
         'description': request.json.get('description', ""),
         'done': False
     }
+
     tasks.append(task)
+
     return jsonify({'task': task}), 201
 
 # PUT Functions
 @app.route('/todo/api/v1.0/tasks/<int:task_id>', methods=['PUT'])
 def update_task(task_id):
+
     task = [task for task in tasks if task['id'] == task_id]
 
     if len(task) == 0:
@@ -98,13 +105,21 @@ def update_task(task_id):
 # DELETE Functions
 @app.route('/todo/api/v1.0/tasks/<int:task_id>', methods=['DELETE'])
 def delete_task(task_id):
+
     task = [task for task in tasks if task['id'] == task_id]
 
     if len(task) == 0:
         abort(404)
 
     tasks.remove(task[0])
+
     return jsonify({'result': True})
+    """
+    Instead of returning the result, I chose to return the tasks...
+    ...so that it can be displayed on the web page.
+    """
+
+    # return jsonify({'tasks': tasks})
 
 # Error Handling
 from flask import make_response

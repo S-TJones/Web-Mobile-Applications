@@ -7,7 +7,6 @@
     <title>SWEN3004 Exercise 2</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     
-    <script src="{{ url_for('static', filename='js/methods.js') }}"></script>
     <script src="https://kit.fontawesome.com/238a67abd4.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -25,7 +24,7 @@
     </header>
     <main>
         <section class="view-task">
-            <div class="top">
+            <div class="left">
                 <button id="view-all">View All</button>
                 
                 <form action="#" method="get">
@@ -33,8 +32,26 @@
                     <button id="view-one">View Single</button>
                 </form>
             </div>
-            <div class="base">
+            <div class="right">
                 <div id="task"></div>
+            </div>
+        </section>
+
+        <section class="add-task">
+            <div class="left">
+                <form action="#" method="post">
+                    <label for="task-title-add">Title</label>
+                    <input type="text" name="task-title-add" id="task-title-add">
+
+                    <label for="task-desc-add">Description</label>
+                    <input type="text" name="task-desc-add" id="task-desc-add">
+
+                    <button id="add-one" type="button">Add</button>
+                </form>
+            </div>
+            <div class="right">
+                <h3>New Task</h3>
+                <div id="new-task"></div>
             </div>
         </section>
 
@@ -63,9 +80,14 @@
                 console.log('load window');
                 let b1 = document.getElementById("view-all");
                 let b2 = document.getElementById("view-one");
+                let b3 = document.getElementById("add-one");
+                let b4 = document.getElementById("update-one");
+                let b5 = document.getElementById("delete-one");
 
                 b1.addEventListener("click", veiwAllTasks);
                 b2.addEventListener("click", viewSpecificTask);
+                b3.addEventListener("click", addSingleTask);
+                b5.addEventListener("click", deleteSpecificTask);
             }
 
             // Functions for each route
@@ -84,6 +106,7 @@
 
             function viewSpecificTask(event) {
                 event.preventDefault();
+
                 let id = document.getElementById("task-id").value;
 
                 fetch(`/todo/api/v1.0/tasks/${id}`, {
@@ -103,6 +126,52 @@
                     code = "<div class='single-task'><h3>" + jsonResponse['task']['title'] + "</h3><p>" + jsonResponse['task']['description'] + "</p></div>";
 
                     document.getElementById("task").innerHTML = code;
+                });
+            }
+
+            function addSingleTask(event) {
+                event.preventDefault();
+
+                let task_title = document.getElementById("task-title-add").value;
+                let task_desc = document.getElementById("task-desc-add").value;
+
+                fetch(`/todo/api/v1.0/tasks`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(
+                        {
+                            'title': task_title,
+                            'description': task_desc
+                        }
+                    )
+                })
+                .then(function (response) {
+                    return response.json();
+                }).then(function (jsonResponse) {
+                    console.log('GET response:', jsonResponse);
+
+                    // Update the div
+                });
+            }
+
+            function deleteSpecificTask(event) {
+                event.preventDefault();
+                let id = document.getElementById("task-id-delete").value;
+
+                fetch(`/todo/api/v1.0/tasks/${id}`, {
+                    headers: {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    }
+                })
+                .then(function (response) {
+                    return response.json();
+                }).then(function (jsonResponse) {
+                    console.log('JSONresponse:', jsonResponse);
                 });
             }
 
